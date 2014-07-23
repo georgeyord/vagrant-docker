@@ -1,0 +1,18 @@
+.vagrant
+.vimproject
+*.swp
+*.AppleDouble
+*.sublime-project
+*.sublime-workspace
+.smbdelete*
+/.DS_Store
+/.buildpath
+/.project
+
+# dev extensions
+.project
+.settings
+.idea
+.idea/*
+
+

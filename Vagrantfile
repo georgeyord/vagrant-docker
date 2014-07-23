@@ -1,0 +1,46 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # All Vagrant configuration is done here. The most common configuration
+  # options are documented and commented below. For a complete reference,
+  # please see the online documentation at vagrantup.com.
+
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box = "georgeyord/docker"
+  config.vm.url = "https://vagrantcloud.com/georgeyord/docker/version/1/provider/virtualbox.box"
+
+  # Create a public network, which generally matched to bridged network.
+  # Bridged networks make the machine appear as another physical device on
+  # your network.
+  config.vm.network "private_network"
+  # Use the following to have your VM accessible from other computers
+  # config.vm.network "public_network" bridge: "eth0"
+
+  # Share an additional folder to the guest VM. The first argument is
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+
+  # Use the following to share a directory between host and VM
+  # config.vm.synced_folder "./data/", "/opt/data", :mount_options => ["dmode=777","fmode=666"]
+
+  # Provider-specific configuration so you can fine-tune various
+  # backing providers for Vagrant. These expose provider-specific options.
+  # VirtualBox:
+  config.vm.provider :virtualbox do |vb|
+  	# Don't boot with headless mode
+  	# vb.gui = true
+  	# Use VBoxManage to customize the VM:
+	vb.customize ["modifyvm", :id, "--name", "vagrant_docker"]
+	vb.customize ["modifyvm", :id, "--memory", "1024"]
+	vb.customize ["modifyvm", :id, "--cpus", 2]
+	vb.customize ["modifyvm", :id, "--cpuexecutioncap", "80"]
+  end
+
+  # Upgrate Ubuntu, install docker and other basic tools and cleanup
+  config.vm.provision "shell", path: "script/provision.sh"
+end
