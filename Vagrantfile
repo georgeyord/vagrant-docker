@@ -11,7 +11,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "georgeyord/docker"
-  config.vm.url = "https://vagrantcloud.com/georgeyord/docker/version/1/provider/virtualbox.box"
+  # If the above fails for any reason uncomment the following line
+  # config.vm.box_url = "https://vagrantcloud.com/georgeyord/docker/version/1/provider/virtualbox.box"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -25,8 +26,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
 
-  # Use the following to share a directory between host and VM
-  # config.vm.synced_folder "./data/", "/opt/data", :mount_options => ["dmode=777","fmode=666"]
+  # Use the following to share "data" directory between host and VM
+  config.vm.synced_folder "./data/", "/opt/data", :mount_options => ["dmode=777","fmode=666"]
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -35,12 +36,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   	# Don't boot with headless mode
   	# vb.gui = true
   	# Use VBoxManage to customize the VM:
-	vb.customize ["modifyvm", :id, "--name", "vagrant_docker"]
-	vb.customize ["modifyvm", :id, "--memory", "1024"]
-	vb.customize ["modifyvm", :id, "--cpus", 2]
-	vb.customize ["modifyvm", :id, "--cpuexecutioncap", "80"]
+	vb.customize ["modifyvm", :id, "--name", "vagrant-docker"]
+	# vb.customize ["modifyvm", :id, "--memory", "1024"]
+	# vb.customize ["modifyvm", :id, "--cpus", 2]
+	# vb.customize ["modifyvm", :id, "--cpuexecutioncap", "80"]
   end
-
-  # Upgrate Ubuntu, install docker and other basic tools and cleanup
-  config.vm.provision "shell", path: "script/provision.sh"
 end
