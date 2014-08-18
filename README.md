@@ -13,8 +13,8 @@ Vagrant box based on ubuntu 14.04 LTS with [Docker](https://www.docker.com/) (do
 
 ## The box in numbers
 
- * Basic image filesize: <800mb stored in S3
- * Provision duration: <1minute [provision script](https://github.com/georgeyord/vagrant-docker/blob/master/script/provision.sh)
+ * Basic image filesize: about 800mb stored in S3
+ * [Provision script](https://raw.githubusercontent.com/georgeyord/scripts/master/provision/dev-basics-git-docker.sh)
 
 ## Vagrant tips
 
